@@ -158,3 +158,80 @@
     (se '(pleased to meet you)
         (first name)
         '(-- how are you?))))
+
+(greet '(brian epstein))
+
+(greet '(professor donald knuth))
+
+(define (greet name)
+  (se '(pleased to meet you)
+      (if (equal? (first name) 'professor)
+        (se 'professor (last name))
+        (first name))
+      '(-- how are you?)))
+
+; Boring exercises
+
+(define (odd? n)
+  (not (even? n)))
+
+(cond ((= 3 4) '(this boy))
+      ((< 2 5) '(nowhere man))
+      (else '(two of us)))
+
+(cond (empty? 3)
+      (square 7)
+      (else 9))
+
+(define (third-person-singular verb)
+  (cond ((equal? verb 'be) 'is)
+        ((equal? (last verb) 'o) (word verb 'es))
+        (else (word verb 's))))
+
+(or #f #f #f #t)
+
+(and #f #f #f #t)
+
+(or (= 2 3) (= 4 3))
+
+(not #f)
+
+(or (not (= 2 3)) (= 4 3))
+
+(or (and (= 2 3) (= 3 3)) (and (< 2 3) (< 3 4)))
+
+(define (sign number)
+  (if (< number 0)
+    'negative
+    (if (= number 0)
+      'zero
+      'positive)))
+
+(define (utensil meal)
+  (cond ((equal? meal 'chinese) 'chopsticks)
+        (else 'fork)))
+
+; Real Exercises
+
+(define (european-time time)
+  (cond  
+        ((if (and (last time) 'am) (equal? (first time) 12)
+           (+ 12 (first time))))
+        ((equal? (last time) 'am) (first time))
+        ((equal? (last time) 'pm) (+ 12 (first time)))))
+
+(european-time '(11 am))
+(european-time '(1 pm))
+(european-time '(2 pm))
+(european-time '(3 pm))
+(european-time '(4 pm))
+
+(define (american-time time)
+  (if (= time 12) 
+    (se (time 'pm)))
+  (if (< time 12)
+    (se time 'am)
+    (se (- time 12) 'pm)))
+
+
+(and (equal? (last '(12 am)) 'am) (equal? (first '(12 am)) 12) (+ 12 12))
