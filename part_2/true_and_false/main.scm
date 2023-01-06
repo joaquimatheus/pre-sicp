@@ -213,12 +213,7 @@
 
 ; Real Exercises
 
-(define (european-time time)
-  (cond  
-        ((if (and (last time) 'am) (equal? (first time) 12)
-           (+ 12 (first time))))
-        ((equal? (last time) 'am) (first time))
-        ((equal? (last time) 'pm) (+ 12 (first time)))))
+(define )
 
 (european-time '(11 am))
 (european-time '(1 pm))
@@ -235,3 +230,68 @@
 
 
 (and (equal? (last '(12 am)) 'am) (equal? (first '(12 am)) 12) (+ 12 12))
+
+(define (teen? age)
+  (and (> age 12) (< age 20)))
+
+(define (type-of x)
+  (cond
+    ((word? x) "word")
+    ((list? x) "sentence")
+    ((number? x) "number")
+    ((boolean? x) "boolean")
+    (else "unknown")))
+
+(define (vowel? x) (member? x '(a e i o u)))
+
+(define (indef-article wd)
+  (se
+    (if (vowel? (first wd)) 'an 'a)
+      wd))
+
+(define (thismany many wd)
+  (se many
+    (if (> many 1) (word wd 's) wd)))
+
+(define (sort2 n)
+    (if (> (first n) (last n)) 
+      (se (last n) (first n)) 
+      (se (first n) (last n))))
+
+(se
+  (if (> 5 7)
+    '7 '5
+    '5 '7))
+
+(define (valid-date? month day year)
+  (cond
+    ((or (< month 1) (> month 12)) #f) ; meses inválidos
+    ((or (< day 1) (> day 31)) #f) ; dias inválidos
+    ((and (= month 2) (= day 29)
+          (not (or (zero? (modulo year 4))
+                   (and (zero? (modulo year 100)) (zero? (modulo year 400)))))) #f) ; fevereiro com 29 dias apenas em anos bissextos
+    (else #t))) ; data válida
+
+(define (plural wd)
+  (if (equal? (last wd) 'y)
+    (word (bl wd) 'ies)
+    (word wd 's)))
+
+(define (describe-time seconds)
+  (time-string seconds))
+
+(define (describe-time seconds)
+  (cond
+    ((>= seconds 31536000) (se (/ seconds 31536000) 'anos))
+    ((>= seconds 2592000) (se (/ seconds 2592000) 'meses))
+    ((>= seconds 604800) (se (/ seconds 604800) 'semanas))
+    ((>= seconds 86400) (se (/ seconds 86400) 'dias))
+    ((>= seconds 3600) (se (/ seconds 3600) 'horas))
+    ((>= seconds 60) (se (/ seconds 60) 'minutos))
+    (else (se seconds 'segundos))))
+
+(define pi 3.141592654)
+
+(define song '(I am the walrus))
+
+(last song)
